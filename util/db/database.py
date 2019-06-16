@@ -1,6 +1,4 @@
-from sqlalchemy.sql.sqltypes import *
-from sqlalchemy.orm import sessionmaker,Session
-from sqlalchemy.sql.schema import *
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
@@ -10,8 +8,9 @@ import os.path
 
 
 Base = declarative_base()
-dbpath = os.path.join(DATABASE_SETTING['path'], DATABASE_SETTING['dbname'])
-conn_str = 'sqlite:///' + dbpath
+#dbpath = os.path.join(DATABASE_SETTING['path'], DATABASE_SETTING['dbname'])
+#conn_str = 'sqlite:///' + dbpath
+conn_str='mysql+mysqlconnector://root:123456@localhost:3306/test'
 engine = create_engine(conn_str)
 DbSession = sessionmaker(bind=engine)
 session = DbSession()
@@ -28,8 +27,10 @@ def addRecord(tableObject):
         result = 'Success'
     except NoForeignKeysError as e:
         session.rollback()
+        print(e)
         result = 'Fail'
     except DBAPIError as e:
+        print(e)
         session.rollback()
         result = 'Fail'
     finally:
@@ -57,7 +58,3 @@ def altertable(tablename,columnname,columntype,length,nullable=False,defaultvalu
     print('alter sql is %s' % altersql)
     conn.execute(altersql)
     conn.close()
-
-
-
-
