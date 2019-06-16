@@ -7,5 +7,5 @@
 
 在安装好后，切换到docs目录下，输入jupyter notebook来启动jupyter服务器，然后在浏览器打开的页面选择doc_database.ipynb查看。
 
-每个python代码块都是可执行的，点击页面上的运行，可以通过交互操作来运行范例code。当然，需要先在docker中启动mysql服务。
+每个python代码块都是可执行的，点击页面上的运行，可以通过交互操作来运行范例code。当然，需要先在docker中启动mysql服务，并且建立一个名为test的数据库。
 
