@@ -1,6 +1,5 @@
 import logging
 import logging.handlers
-import os,time
 
 class Trace:
     def __init__(self,modulename='Trace',maxfilecount=5,singlefilesize=2048):
@@ -36,3 +35,9 @@ class Trace:
             self.__logger.critical(message)
         else:
             self.__logger.exception(message)
+        self.__filehandler.close()
+
+if __name__ == '__main__':
+    tracer = Trace('DB')
+    while True:
+        tracer.trace('test')
